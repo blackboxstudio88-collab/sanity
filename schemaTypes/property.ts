@@ -58,6 +58,44 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'heroSubtitle',
+      title: 'Hero Subtitle',
+      type: 'object',
+      description: 'Optional subtitle displayed above the main title on the hero section',
+      fields: [
+        {
+          name: 'en',
+          title: 'English',
+          type: 'string',
+        },
+        {
+          name: 'bg',
+          title: 'Bulgarian',
+          type: 'string',
+        },
+      ],
+    }),
+    defineField({
+      name: 'footerDescription',
+      title: 'Footer Description',
+      type: 'object',
+      description: 'Short description displayed in the footer',
+      fields: [
+        {
+          name: 'en',
+          title: 'English',
+          type: 'text',
+          rows: 2,
+        },
+        {
+          name: 'bg',
+          title: 'Bulgarian',
+          type: 'text',
+          rows: 2,
+        },
+      ],
+    }),
+    defineField({
       name: 'mainImage',
       title: 'Main Image',
       type: 'image',
@@ -308,6 +346,65 @@ export default defineType({
               title: 'Bulgarian',
             },
           ],
+        },
+        {
+          name: 'messengerUrl',
+          type: 'url',
+          title: 'Facebook Messenger URL',
+          description: 'Full Messenger link (e.g., https://m.me/yourpage)',
+        },
+        {
+          name: 'viberUrl',
+          type: 'url',
+          title: 'Viber URL',
+          description: 'Viber chat link (e.g., viber://chat?number=+1234567890)',
+        },
+      ],
+    }),
+    defineField({
+      name: 'socialLinks',
+      title: 'Social Media Links',
+      type: 'array',
+      description: 'Social media profiles displayed in the footer',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'platform',
+              type: 'string',
+              title: 'Platform',
+              options: {
+                list: [
+                  {title: 'Facebook', value: 'facebook'},
+                  {title: 'Instagram', value: 'instagram'},
+                  {title: 'Twitter/X', value: 'twitter'},
+                  {title: 'LinkedIn', value: 'linkedin'},
+                  {title: 'YouTube', value: 'youtube'},
+                  {title: 'TikTok', value: 'tiktok'},
+                ],
+              },
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'url',
+              type: 'url',
+              title: 'URL',
+              validation: (Rule) => Rule.required().uri({scheme: ['http', 'https']}),
+            },
+          ],
+          preview: {
+            select: {
+              platform: 'platform',
+              url: 'url',
+            },
+            prepare({platform, url}) {
+              return {
+                title: platform ? platform.charAt(0).toUpperCase() + platform.slice(1) : 'Social Link',
+                subtitle: url,
+              }
+            },
+          },
         },
       ],
     }),
