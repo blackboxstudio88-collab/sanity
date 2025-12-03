@@ -118,26 +118,161 @@ export default defineType({
       ],
     }),
     defineField({
-      name: 'amenities',
-      title: 'Amenities',
+      name: 'apartmentRooms',
+      title: 'Apartment Rooms',
       type: 'array',
       of: [
         {
           type: 'object',
           fields: [
             {
-              name: 'en',
-              type: 'string',
-              title: 'English',
-              validation: (Rule) => Rule.required(),
+              name: 'name',
+              type: 'object',
+              title: 'Room Name',
+              fields: [
+                {name: 'en', type: 'string', title: 'English'},
+                {name: 'bg', type: 'string', title: 'Bulgarian'},
+              ],
             },
             {
-              name: 'bg',
-              type: 'string',
-              title: 'Bulgarian',
-              validation: (Rule) => Rule.required(),
+              name: 'description',
+              type: 'object',
+              title: 'Description',
+              fields: [
+                {name: 'en', type: 'text', title: 'English'},
+                {name: 'bg', type: 'text', title: 'Bulgarian'},
+              ],
+            },
+            {
+              name: 'images',
+              type: 'array',
+              title: 'Room Images',
+              of: [
+                {
+                  type: 'image',
+                  options: {hotspot: true},
+                  fields: [
+                    {
+                      name: 'alt',
+                      type: 'object',
+                      title: 'Alternative Text',
+                      fields: [
+                        {name: 'en', type: 'string', title: 'English'},
+                        {name: 'bg', type: 'string', title: 'Bulgarian'},
+                      ],
+                    },
+                  ],
+                },
+              ],
             },
           ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'hotelAmenities',
+      title: 'Hotel Amenities',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'name',
+              type: 'object',
+              title: 'Amenity Name',
+              fields: [
+                {name: 'en', type: 'string', title: 'English'},
+                {name: 'bg', type: 'string', title: 'Bulgarian'},
+              ],
+            },
+            {
+              name: 'description',
+              type: 'object',
+              title: 'Description',
+              fields: [
+                {name: 'en', type: 'text', title: 'English'},
+                {name: 'bg', type: 'text', title: 'Bulgarian'},
+              ],
+            },
+            {
+              name: 'icon',
+              type: 'string',
+              title: 'Icon Name',
+              description: 'Icon identifier for the amenity',
+            },
+            {
+              name: 'images',
+              type: 'array',
+              title: 'Amenity Images',
+              of: [
+                {
+                  type: 'image',
+                  options: {hotspot: true},
+                  fields: [
+                    {
+                      name: 'alt',
+                      type: 'object',
+                      title: 'Alternative Text',
+                      fields: [
+                        {name: 'en', type: 'string', title: 'English'},
+                        {name: 'bg', type: 'string', title: 'Bulgarian'},
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'exteriorImages',
+      title: 'Exterior & Drone Images',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {hotspot: true},
+          fields: [
+            {
+              name: 'alt',
+              type: 'object',
+              title: 'Alternative Text',
+              fields: [
+                {name: 'en', type: 'string', title: 'English'},
+                {name: 'bg', type: 'string', title: 'Bulgarian'},
+              ],
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'specifications',
+      title: 'Property Specifications',
+      type: 'object',
+      fields: [
+        {
+          name: 'bedrooms',
+          type: 'number',
+          title: 'Number of Bedrooms',
+        },
+        {
+          name: 'bathrooms',
+          type: 'number',
+          title: 'Number of Bathrooms',
+        },
+        {
+          name: 'size',
+          type: 'number',
+          title: 'Size (sq m)',
+        },
+        {
+          name: 'maxGuests',
+          type: 'number',
+          title: 'Maximum Guests',
         },
       ],
     }),
