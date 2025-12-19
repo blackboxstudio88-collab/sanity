@@ -355,7 +355,7 @@ export default defineType({
         },
         {
           name: 'viberUrl',
-          type: 'url',
+          type: 'string',
           title: 'Viber URL',
           description: 'Viber chat link (e.g., viber://chat?number=+1234567890)',
         },
