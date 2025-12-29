@@ -156,9 +156,10 @@ export default defineType({
       ],
     }),
     defineField({
-      name: 'apartmentRooms',
-      title: 'Apartment Rooms',
+      name: 'landmarks',
+      title: 'Nearby Landmarks',
       type: 'array',
+      description: 'Add nearby landmarks with names and links',
       of: [
         {
           type: 'object',
@@ -166,44 +167,35 @@ export default defineType({
             {
               name: 'name',
               type: 'object',
-              title: 'Room Name',
+              title: 'Landmark Name',
               fields: [
-                {name: 'en', type: 'string', title: 'English'},
-                {name: 'bg', type: 'string', title: 'Bulgarian'},
+                {name: 'en', type: 'string', title: 'English', validation: (Rule) => Rule.required()},
+                {name: 'bg', type: 'string', title: 'Bulgarian', validation: (Rule) => Rule.required()},
               ],
+              validation: (Rule) => Rule.required(),
             },
             {
-              name: 'description',
-              type: 'object',
-              title: 'Description',
-              fields: [
-                {name: 'en', type: 'text', title: 'English'},
-                {name: 'bg', type: 'text', title: 'Bulgarian'},
-              ],
-            },
-            {
-              name: 'images',
-              type: 'array',
-              title: 'Room Images',
-              of: [
-                {
-                  type: 'image',
-                  options: {hotspot: true},
-                  fields: [
-                    {
-                      name: 'alt',
-                      type: 'object',
-                      title: 'Alternative Text',
-                      fields: [
-                        {name: 'en', type: 'string', title: 'English'},
-                        {name: 'bg', type: 'string', title: 'Bulgarian'},
-                      ],
-                    },
-                  ],
-                },
-              ],
+              name: 'url',
+              type: 'url',
+              title: 'Link',
+              description: 'URL to the landmark (Google Maps, website, etc.)',
+              validation: (Rule) => Rule.required(),
             },
           ],
+          preview: {
+            select: {
+              titleEn: 'name.en',
+              titleBg: 'name.bg',
+              url: 'url',
+            },
+            prepare(selection) {
+              const {titleEn, titleBg, url} = selection
+              return {
+                title: titleEn || titleBg || 'Untitled Landmark',
+                subtitle: url,
+              }
+            },
+          },
         },
       ],
     }),
