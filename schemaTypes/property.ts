@@ -425,6 +425,13 @@ export default defineType({
           title: 'Longitude',
           validation: (Rule) => Rule.required().min(-180).max(180),
         },
+        {
+          name: 'googleMapsUrl',
+          type: 'url',
+          title: 'Google Maps URL',
+          description: 'Your Google Maps business listing URL (e.g., from "Share" button on your pin)',
+          validation: (Rule) => Rule.optional(),
+        },
       ],
     }),
   ],
